@@ -1,0 +1,43 @@
+<header class="text-gray-600 body-font py-1">
+    <div class="container mx-auto flex flex-wrap p-9 flex-col md:flex-row items-center">
+      <a href="{% url 'landing-page' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+              <path d="M22 4L12 14.01l-3-3"></path>
+            </svg>
+          <span class="mr-4 ml-2 text-xl">Dontá CRM</span>
+      </a>
+      {% if not request.user.is_authenticated %}
+      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <a href="{% url 'signup' %}" class="mr-4 hover:text-gray-900 items-right">Create Account</a>
+        <a href="{% url 'login' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+          Login
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </nav>
+      {% else %}
+      {% if request.user.is_org %}
+        <nav class="flex flex-wrap items-center text-base justify-center">
+          <a href="{% url 'agents:agent-list' %}" class="md:mr-4 md:ml-4 md:pl-4 md:border-l md:border-gray-400 hover:text-gray-900 flex flex-wrap">Agents</a>
+        </nav>
+      {% endif %}
+        <nav class="flex flex-wrap items-center text-base justify-center">
+          <a href="{% url 'leads:lead-list' %}" class="md:mr-4 mr-4 hover:text-gray-900 flex flex-wrap">Leads</a>
+          <a class="mr-4 hover:text-gray-900">Tasks</a>
+          <a href="{% url 'leads:contact-form' %}" class="mr-4 hover:text-gray-900">Contacts</a>
+        </nav>
+      {% endif %}
+      {% if request.user.is_authenticated %}
+        <nav class="md:mr-auto md:ml-4 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-right text-base justify-center"></nav>
+        Logged in: {{ request.user.username }}
+        <a href="{% url 'logout' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 ml-3">
+          Logout
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-3 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+        </a>
+      {% endif %}
+    </div>
+</header>
